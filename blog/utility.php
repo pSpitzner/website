@@ -3,20 +3,25 @@
 <?php
 // Get setting and Markdown classes
 require_once __DIR__ . "/settings.php";
-// require_once BLOG_RESOURCE_PATH . "/Parsedown.php";
-require_once BLOG_RESOURCE_PATH . "/Michelf/SmartyPants.inc.php";
-require_once BLOG_RESOURCE_PATH . "/Michelf/SmartyPantsTypographer.inc.php";
-// frontyaml installed via composer https://github.com/mnapoli/FrontYAML
+
+// frontyaml, https://github.com/mnapoli/FrontYAML
+// smartypants https://github.com/michelf/php-smartypants
+// composer require mnapoli/front-yaml michelf/php-smartypants
 require BLOG_RESOURCE_PATH . '/vendor/autoload.php';
 
 $parser = new Mni\FrontYAML\Parser();
 
+// https://michelf.ca/projects/php-smartypants/configuration/
+$smpts = new Michelf\SmartyPants("2");
+$smpts->do_dashes = 2;
+$smptsty = new Michelf\SmartyPantsTypographer();
+$smptsty->do_space_emdash = 2; // force spaces around emdashes
 
 
 
 function parseMarkdown($markdown)
 {
-    global $parser;
+    global $parser, $smpts, $smptsty;
 
     // used to have different parser:
     // $Parsedown = Parsedown::instance();
@@ -30,8 +35,8 @@ function parseMarkdown($markdown)
     $yaml = array_change_key_case($yaml, CASE_LOWER);
 
     $html = $document->getContent();
-    $html = Michelf\SmartyPants::defaultTransform($html, "2");
-    $html = Michelf\SmartyPantsTypographer::defaultTransform($html);
+    $html = $smpts->transform($html);
+    $html = $smptsty->transform($html);
     // https://michelf.ca/projects/php-smartypants/configuration/
     // parse smart punctuation, "2" is the config for em dashes "---" and en dashes "--"
 
