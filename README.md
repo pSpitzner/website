@@ -15,8 +15,14 @@
 - [python script to parse bibtex](https://github.com/pSpitzner/publicationlist_bibtex_to_html)
 
 
-Some code snippets
+The composer packages are only needed in the blog for markdown parsing.
+
+```
+cd /blog/src  composer require mnapoli/front-yaml michelf/php-smartypants
+```
+
+To get the css from my less files, run
+
 ```
 lessc /main/css/_main.less /main/css/combined_less.css
-composer require mnapoli/front-yaml michelf/php-smartypants
 ```
