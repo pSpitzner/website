@@ -1,0 +1,105 @@
+#content-publications {
+  padding-top: calc(1rem);
+}
+
+.pub_list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+.pub_list li {
+  position: relative;
+  margin-top: 1.0rem;
+  margin-bottom: 2.0rem;
+  margin-right: -.25rem;
+  /* compensate contend to align with menubar */
+  margin-left: -.25rem;
+  border-radius: 6px;
+  padding: 0.5rem;
+  background: var(--bg-clr);
+
+  /* gradient from lower-left corner to upper right */
+  /* background: linear-gradient(15deg, var(--item-clr) 0%, transparent 70%); */
+  /* border: solid 1px var(--border-clr); */
+
+}
+
+.pub_list li::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  background: linear-gradient(15deg, var(--item-clr) 0%, transparent 70%);
+  border-radius: 7px;
+  z-index: -1;
+}
+
+@media (prefers-color-scheme: light) {
+  .pub_list li::before {
+    background: linear-gradient(15deg, #B2B2B2 0%, transparent 40%);
+  }
+}
+
+.pub_author {
+  text-align: left;
+  line-height: 1.3;
+}
+
+.pub_author span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.pub_title {
+  display: inline-block;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.pub_journal {
+  font-weight: inherit;
+}
+
+.pub_abstract {
+  margin-top: .25rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+  margin-bottom: .25rem;
+  font-style: italic;
+  /*border: 1px solid #fff;
+  border-color: var(--border-clr);
+  border-radius: 7.5px;*/
+}
+
+.pub_badge_group {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  margin-top: .15rem;
+}
+
+.pub_badge {
+  margin-right: .3rem;
+}
+
+/* overwrite the bootstrap button for abstract toggling to match my theme */
+.pub_badge > .btn {
+  color: #fff;
+  background-color: #555;
+  border: 0px solid rgba(0, 0, 0, 0);
+  /* badges have a bit of a top-down gradient */
+  background-image: -webkit-linear-gradient(top, #5f5f5f 0%, #4c4c4c 100%);
+  /* the badges are 20px high, lets have the same */
+  height: 20px;
+  line-height: 20px;
+  padding: 0px 7px;
+  font-size: 0.75rem;
+  text-shadow: 0 .8px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  /* disable hover darkening */
+}

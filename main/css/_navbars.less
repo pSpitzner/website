@@ -1,0 +1,661 @@
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.noise {
+    // https: //www.freecodecamp.org/news/grainy-css-backgrounds-using-svg-filters/
+}
+
+#sbouter {
+    margin-top: 0px;
+    padding-top: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+/*dummy element containing it all*/
+#sbinner {
+    top: 0;
+    align-self: flex-start;
+
+    &.relative {
+        position: relative;
+        align-self: flex-start;
+    }
+
+    &.sticky {
+        position: -webkit-sticky;
+        position: -moz-sticky;
+        position: -ms-sticky;
+        position: -o-sticky;
+        position: sticky;
+        align-self: flex-start;
+    }
+}
+
+/*invisible anchor on top of the sidebar for intersection observer*/
+#sbtop {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    align-self: flex-start;
+    height: 1px;
+    top: 0;
+}
+
+
+
+/*content with styling and background*/
+#sbcontent {
+    margin-top: calc(1rem - 1px);
+
+    align-self: flex-start;
+    background: var(--item-clr);
+    // border: 1px solid @border-clr;
+    // border-color: var(--border-clr);
+    border-radius: 6px;
+    max-height: 100vh;
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: var(--fg-clr);
+    // box-shadow: 0px 0px 1.5px 1.5px rgba(0, 0, 0, .07);
+
+    // minimal sidebar animation
+    transition: all 0.3s ease-out;
+
+    .feather {
+        color: var(--fg-clr);
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+        flex-shrink: 0;
+    }
+
+    .feather.sm {
+        width: 12px;
+        height: 12px;
+    }
+
+    .sidebar-header {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+    }
+
+    // instead of border-bottom, use an ::after to insert a gradient that fades out
+    .sidebar-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--accent-clr), rgba(0, 0, 0, 0));
+    }
+
+    ul.components {
+        padding: .25rem .25rem .25rem .25rem;
+        margin-bottom: .25rem;
+    }
+
+    .nav-item>.nav-link {
+        white-space: nowrap;
+        text-overflow: hidden;
+        overflow: hidden;
+        // height: 2.4em;
+    }
+
+    .nav-item.expand>.nav-link {
+        text-align: center;
+        align-self: center;
+        display: block;
+        font-size: var(--step--2);
+        @lh: 1.2em;
+        line-height: @lh;
+
+        .swp-fix-1 {
+            height: @lh;
+        }
+
+        .swp-fix-2 {
+            height: 2*@lh;
+        }
+
+        .swp-fix-3 {
+            height: 3*@lh;
+        }
+
+        margin: 0px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        padding: 2px;
+        padding-left: 1em;
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        // @media (min-width: 992px) and (max-width: 1200px) {
+        // padding-left: 18px;
+        // }
+
+        &>.text {
+            display: inline-block;
+            text-align: left;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-left: 6px;
+
+            @media (min-width: 768px) and (max-width: 992px) {
+                padding-left: 0px;
+                text-align: justify;
+            }
+        }
+    }
+
+    .pad {
+        flex: 0;
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            flex: 1;
+        }
+    }
+}
+
+// wrapper around links
+.nav-item {
+    &>a {
+        /*-webkit-animation: fadeIn .15s;*/
+        /*animation: fadeIn .15s;*/
+        transition: 0.0s ease;
+        -moz-transition: 0.0s ease;
+        -webkit-transition: 0.0s ease;
+    }
+
+    &.active>a {
+        color: var(--fg-clr);
+        background: var(--active-clr);
+        transition: 0.3s ease;
+        -moz-transition: 0.3s ease;
+        -webkit-transition: 0.3s ease;
+
+        // in light mode we dont have such a clear color background. increase weight
+        // also looks okay in dark.
+        font-weight: 400;
+        >.sb-icon {
+            stroke-width: 2.0;
+        }
+    }
+
+    &.expand {
+        padding: 2px;
+        margin: 0px;
+    }
+}
+
+.nav-link {
+    position: relative;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.1s;
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: .4rem .5rem;
+    margin: 5px .25rem 0px;
+    color: var(--fg-clr) !important;
+
+    @media (min-width: 768px) and (max-width: 992px) {
+        text-align: center;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            background: var(--accent-clr);
+        }
+    }
+}
+
+
+.nav-expand-group {
+    background: var(--collapse-bg-clr);
+    border-radius: 0 0 6px 6px;
+    padding: .25rem 0rem;
+    margin: 0 .25rem 0;
+}
+
+.nav-link.expand {
+    transition: border-radius 0.3s ease-out 0.3s;
+
+    // on touch devices, when closing the collapse, the BG would go immediately back
+    // to the default.
+    @media(hover: none) {
+        transition: border-radius 0.3s ease-out 0.3s, background 0.1s ease-out 0.3s;
+    }
+}
+
+// change style of expanding button when group is expanded:
+.nav-link.expand[aria-expanded="true"] {
+    position: relative;
+    border-radius: 6px 6px 0 0;
+    transition: border-radius 0.3s ease 0s;
+    background: var(--collapse-bg-clr);
+
+    @media(hover: hover) {
+        &:hover {
+            background: var(--accent-clr);
+        }
+    }
+}
+
+.nav-link.expand[aria-expanded="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--accent-clr), rgba(0, 0, 0, 0));
+}
+
+.nav-link.expand>.can-expand-icon {
+    display: none;
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.rhs {
+        margin-left: auto;
+        margin-right: 0 !important;
+    }
+}
+
+// show the icon on hover, but only on large displays
+@media (min-width: 768px) {
+    .nav-link.expand:hover>.can-expand-icon {
+        display: inline-block;
+        // and make it rotate on unfold
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-link.expand[aria-expanded="true"]>.can-expand-icon {
+        transform: translateY(-50%) rotate(90deg);
+    }
+}
+
+
+// ------------------------------------------------------//
+// minimal version of the sidebar
+// ------------------------------------------------------//
+
+#sbouter.onlanding>#sbinner>#sbcontent {
+
+    background: none;
+    overflow: visible;
+
+    // hide the logo and tricky stuff for now
+    >.sidebar-header>.logo {
+        // display: none;
+        opacity: 0;
+    }
+
+    >.sidebar-header::after {
+        background: none;
+    }
+
+
+    >ul>.nav-item>.nav-link {
+        overflow: visible;
+
+        >.text {
+            // display: none cannot be animated.
+            opacity: 0;
+            color: var(--fg-clr-landing);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        >.sb-icon {
+            color: var(--fg-clr-landing);
+            transform: scale(1.0);
+            margin-right: .75em;
+            width: 16px;
+            // for hover, fast animation
+            transition: all 0.1s ease-out;
+        }
+
+        >.pad {
+            flex: 0;
+        }
+
+    }
+
+    >ul>.nav-item.active>.nav-link {
+        background: none;
+        transition: 0.0s;
+        -moz-transition: 0.0s;
+        -webkit-transition: 0.0s;
+        font-weight: inherit;
+
+        >.sb-icon {
+            stroke-width: inherit;
+        }
+    }
+
+    @media(hover: hover) {
+        >ul>.nav-item>.nav-link:hover {
+            background: none;
+
+            >.text {
+                opacity: 1 !important;
+                transition: opacity 0.1s ease-in-out;
+            }
+
+            >.sb-icon {
+                transform: scale(1.2);
+            }
+
+            >.can-expand-icon {
+                display: none;
+            }
+
+        }
+    }
+}
+
+// on hover over the whole increase opacity of the text
+#sbouter.onlanding:hover>#sbinner>#sbcontent {
+    >ul>.nav-item>.nav-link {
+        >.text {
+            opacity: 0.3;
+        }
+    }
+}
+
+// on medium displays like ipad where no hover is possible,
+// we want to show the text after a few seconds. maybe consistent with the landing page on iphone
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 768px) and (hover: none) {
+    #sbouter.onlanding>#sbinner>#sbcontent {
+        >ul>.nav-item>.nav-link {
+            >.text {
+                animation: fadeIn 3s ease-in-out;
+                animation-delay: 4s;
+                /* adjust as needed */
+                animation-fill-mode: forwards;
+                /* keeps the end state */
+            }
+        }
+    }
+}
+
+
+// transitions for removing the minimal class
+#sbouter>#sbinner>#sbcontent {
+    transition: all 0.3s ease-out;
+
+    >.sidebar-header>.logo {
+        transition: opacity 0.3s ease-in-out;
+        opacity: 1;
+    }
+
+    >ul>.nav-item>.nav-link {
+        // transition: all 1.5s ease-out;
+        overflow: visible;
+
+        >.text {
+            opacity: 1;
+            // transition: opacity 1.0s ease-in-out;
+        }
+
+        >.sb-icon {
+            transform: scale(1);
+            margin-right: .75em;
+            transition: all 0.7s ease-out;
+
+            // hide on md displays
+            @media (min-width: 768px) and (max-width: 992px) {
+                transform: scale(0);
+                width: 0;
+                margin-right: 0;
+            }
+        }
+
+        >.pad {
+            transition: flex 0.7s ease-out;
+        }
+
+    }
+}
+
+
+
+/* -------------------------------------------------------------------
+menu bar on top
+------------------------------------------------------------------- */
+
+#nbtop.onlanding {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/*overwrite bootstrap breadcrump style*/
+.breadcrumb {
+    display: -ms-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    list-style: none;
+    /*padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;*/
+    padding: 0;
+    /*padding-left: 12px;*/
+    margin: 0 auto 0 18px;
+    background-color: inherit;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    // color: var(--f1-clr);
+    color: var(--fg-clr);
+}
+
+.breadcrumb-item {
+    // color: var(--f1-clr);
+    color: var(--fg-clr);
+}
+
+.breadcrumb-item.active {
+    color: var(--fg-clr);
+}
+
+.breadcrumb-item a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.1s;
+}
+
+
+.navbar {
+    padding: 0;
+}
+
+// this is the main menubar wrapper
+#nbtop {
+    margin-top: 1rem;
+
+    align-items: flex-start;
+    background: var(--item-clr);
+    // border: 1px solid @border-clr;
+    // border-color: var(--border-clr);
+    border-radius: 6px;
+    min-height: 51px;
+    overflow-y: scroll;
+    color: var(--fg-clr);
+}
+
+#menubar_header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+
+    // it only works as navbar on small displays.
+    // otherwise only an indicator for where we currently are.
+    @media (max-width: 768px) {
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) and (hover: hover) {
+        &:hover {
+            background: var(--accent-clr);
+        }
+    }
+
+    // otherwise ignore interactions
+    @media (min-width: 768px) {
+        pointer-events: none;
+    }
+
+}
+
+
+#nbtop .navbar-brand {
+    margin: 10px auto 10px 10px;
+    font-size: 1.0em;
+}
+
+#nbtop .navbar-nav {
+    padding: 0;
+    margin-bottom: 3px;
+}
+
+#nbtop .navbar-toggler {
+    padding: 13px 10px 13px 0;
+    margin: 0;
+    color: var(--fg-clr);
+}
+
+#nbtop .feather {
+    width: 16px;
+    height: 16px;
+    margin-left: 12px;
+}
+
+#nbtop .feather.sm {
+    margin-left: 9px;
+}
+
+#nbtop .pad {
+    flex: 1;
+}
+
+#nbtop .feather-lg {
+    /*color: var(--fg-clr)*/
+    width: 26px;
+    height: 26px;
+    vertical-align: text-bottom;
+    margin-right: 0;
+}
+
+#nbtop ul.components {
+    padding: .5rem .5rem;
+    margin-bottom: 0;
+}
+
+/*overwrite some settings from sidebar.css*/
+#nbtop .nav-link {
+    text-align: center;
+    font-size: 0.9em;
+    padding-left: 0;
+    padding-right: 0;
+    cursor: pointer;
+    /*margin: 2px 45px 5px;*/
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /*justify-content: left;*/
+    align-items: center;
+}
+
+#nbtop .nav-link .text {
+    text-align: center;
+    align-self: center;
+    /*compensate feather icon*/
+    margin-right: 28px;
+}
+
+#nbtop .nav-item.expand>.nav-link {
+    text-align: center;
+    align-self: center;
+    display: block;
+    font-size: 0.8em;
+    @lh: 1.3em;
+    line-height: @lh;
+
+    .swp-fix-1 {
+        height: @lh;
+    }
+
+    .swp-fix-2 {
+        height: 2*@lh;
+    }
+
+    .swp-fix-3 {
+        height: 3*@lh;
+    }
+
+    .text {
+        margin-right: 22px;
+        margin-left: 6px;
+    }
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /*justify-content: left;*/
+    align-items: center;
+    margin: 0px;
+}
+
+// rotate the expand icon when not collapsed
+#menubar-can-expand-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+[aria-expanded="true"] #menubar-can-expand-icon {
+    transform: rotate(90deg);
+}

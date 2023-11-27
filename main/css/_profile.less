@@ -1,0 +1,156 @@
+// we specify the text size relative to the container by using the cqw unit
+// https: //stackoverflow.com/questions/30693928/how-to-make-font-size-relative-to-parent-div
+
+#content-about {
+    padding-top: 1rem;
+}
+
+#profile-wrapper {
+    position: relative;
+    container-type: inline-size;
+    width: 100%;
+}
+
+#profile-pic {
+    position: absolute;
+    width: 50%;
+    right: 0;
+    top: 0;
+}
+
+#profile-hello {
+    // margin-left: 1rem;
+    font-size: 4.5cqw;
+    font-weight: 300;
+    margin-right: 0 !important;
+    white-space: nowrap;
+}
+
+#profile-name {
+    margin-top: 1em;
+    font-size: 10cqw;
+    font-weight: 600;
+    font-family: sans-serif;
+    line-height: 1.0;
+    width: 55%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+#profile-name div:nth-child(1) span {
+    // get the spans -> display inline
+    display: inline-block;
+    margin-right: 15%;
+}
+
+#profile-name div:nth-child(2) span {
+    display: inline-block;
+    margin-right: 0%;
+}
+
+#profile-description {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    font-size: 4.5cqw;
+    font-family: sans-serif;
+    line-height: 1.2;
+    text-align: right;
+    width: 57%;
+    white-space: nowrap;
+}
+
+#profile-description :nth-child(1) {
+    // font-size: 5.0cqw;
+    margin-right: 5%;
+}
+
+#profile-description :nth-child(2) {
+    margin-right: 10%;
+}
+
+#profile-description :nth-child(3) {
+    margin-right: 11%;
+}
+
+#profile-description :nth-child(4) {
+    margin-right: 15%;
+}
+
+#profile-description :nth-child(5) {
+    margin-right: 17%;
+}
+
+
+/* -------------------------------------------------------------------
+enter key for mobile
+------------------------------------------------------------------- */
+#engage-wrapper {
+    position: relative;
+    opacity: 0;
+
+    // only show on small devices
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+// in the future, i might remove this on second visit
+#engage-wrapper.onlanding {
+    // fadeIn is defined in _navbar.lss
+    animation: fadeIn 1s ease-in-out;
+    animation-delay: 2s;
+    animation-fill-mode: forwards; // keeps the end state
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    90%,
+    100% {
+        transform: scale(1);
+    }
+
+    85% {
+        transform: scale(1.035);
+    }
+
+    95% {
+        transform: scale(1.025);
+    }
+}
+
+#enter-key {
+    display: block;
+    position: absolute;
+    top: 0px;
+    height: 40cqw;
+    right: 14%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    transform-origin: 90% 50%;
+
+    @media (hover:none) {
+        animation: bounce 4s linear infinite;
+    }
+
+    @media (hover:hover) {
+        &:hover {
+            transform: scale(1.025);
+            animation: none;
+        }
+    }
+}
+
+#enter-bg {
+    display: block;
+    opacity: 1.0;
+    top: 0px;
+    margin-right: 14%;
+    margin-left: auto;
+    height: 40cqw;
+
+    @media (prefers-color-scheme: light) {
+        opacity: 0.5;
+    }
+}

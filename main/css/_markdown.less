@@ -1,0 +1,85 @@
+/* ---------------------------------------------------
+    STYLE FOR ELEMENTS CREATED BY PARSEDOWN
+----------------------------------------------------- */
+
+@code-bg-clr: #eff0f1; // code background color
+@code-fg-clr : #444; // code font color
+@code-border-clr: #ccc; // code border (multiline blocks)
+
+:root {
+    --code-bg-clr: #eff0f1;
+    --code-fg-clr: #444;
+    --code-border-clr: #ccc;
+}
+
+// overwrite for on darkmode as css variables.
+@media (prefers-color-scheme: dark) {
+    :root {
+        --code-bg-clr: #202020;
+        --code-fg-clr: #bbb;
+        --code-border-clr: #444;
+    }
+
+}
+
+
+// all this should take place within a markdown wrapper
+.markdown {
+
+    h2,
+    .h2 {
+        padding-top: 2rem;
+    }
+
+    h3,
+    .h3 {
+        padding-top: 0.3rem;
+    }
+
+
+
+    // inline code
+    code {
+        font-family: Inconsolata, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        padding: 2px 3px;
+        white-space: nowrap;
+        border: none;
+        background-color: @code-bg-clr;
+        background-color: var(--code-bg-clr);
+        color: @code-fg-clr;
+        color: var(--code-fg-clr);
+        border-radius: 3px;
+        font-size: var(--step--1);
+    }
+
+    // code block
+    pre code {
+        display: block;
+        padding: 0;
+        white-space: pre;
+        border: none;
+        background: transparent;
+        font-size: var(--step--1);
+        line-height: 1.2;
+    }
+
+    pre {
+        // indent a bit more than the 1rem of paragraphs in main.less
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-bottom: 1rem;
+        background-color: @code-bg-clr;
+        background-color: var(--code-bg-clr);
+        border: 1px solid;
+        border-color: @code-border-clr;
+        border-color: var(--code-border-clr);
+        overflow: auto;
+        padding: 6px 10px;
+        border-radius: 3px;
+    }
+
+    // my helvetica font does not do less-bold things like `bolder`
+    strong {
+        font-weight: bold;
+    }
+}

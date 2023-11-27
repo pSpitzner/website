@@ -1,0 +1,19 @@
+/*bootcamp collapse elements transition speed*/
+.collapsing {
+  -webkit-transition: height .3s ease-in-out;
+       -o-transition: height .3s ease-in-out;
+          transition: height .3s ease-in-out;
+}
+
+/* matching animation for the border radius of the elements */
+
+
+/* swup, those two things give fading already */
+.transition-default {
+    transition: 0.2s opacity ease-in, 0.2s transform ease-in-out;
+    opacity: 1;
+    transform: none;
+}
+html.is-animating .transition-default {
+    opacity: 0;
+}

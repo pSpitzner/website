@@ -1,0 +1,350 @@
+// * _nav_sidebar.less,
+// * _nav_menubar.less
+// * _markdown.less
+// are imported near eof
+// >> lessc _main.less combined_less.css
+
+// default css variables for themeing
+// default is dark.
+:root {
+    --bg-clr: #000; // background
+    --fg-clr: #fff; // text in sidebar
+    --fg-clr-landing: #fff;
+    --item-clr: #202020; // sidebar background
+    --accent-clr: #444; // sidebar hover
+    --border-clr: #777; // legacy, when sidebar had a border
+    --collapse-bg-clr: #2a2a2a; // background of expanded sidebar items
+    --active-clr: #27508B; //active sidebar icon
+    --logo-clr: #fff;
+    --link-clr: #78bbf4;
+    --link-clr-hvr: #4796db;
+    --hr-clr: #777; // horizontal line
+    --f0-clr: #fff; // (text) color of content
+    --f1-clr: #bbb; // unused
+
+    // fonts
+    /* @link https://utopia.fyi/type/calculator?c=320,17,1.2,1240,20,1.25,4,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+    /* stylelint-disable */
+    /* Step -2: 11.81px → 12.80px */
+    --step--2: clamp(0.7381rem, calc(0.7166rem + 0.1076vw), 0.8rem);
+    /* Step -1: 14.17px → 16.00px */
+    --step--1: clamp(0.8856rem, calc(0.8458rem + 0.1989vw), 1rem);
+    /* Step 0: 17.00px → 20.00px */
+    --step-0: clamp(1.0625rem, calc(0.9973rem + 0.3261vw), 1.25rem);
+    /* Step 1: 20.40px → 25.00px */
+    --step-1: clamp(1.275rem, calc(1.175rem + 0.5vw), 1.5625rem);
+    /* Step 2: 24.48px → 31.25px */
+    --step-2: clamp(1.53rem, calc(1.3828rem + 0.7359vw), 1.9531rem);
+    /* Step 3: 29.38px → 39.06px */
+    --step-3: clamp(1.8363rem, calc(1.6258rem + 1.0522vw), 2.4413rem);
+    /* Step 4: 35.25px → 48.83px */
+    --step-4: clamp(2.2031rem, calc(1.9079rem + 1.4761vw), 3.0519rem);
+    /* stylelint-enable */
+}
+
+// overwrite for on lightmode as css variables.
+// @media (prefers-color-scheme: light) {
+//     :root {
+//         --bg-clr: #fff;
+//         --fg-clr: #fff;
+//         --fg-clr-landing: #000;
+//         --item-clr: #454545;
+//         --accent-clr: #555;
+//         --border-clr: rgba(0, 0, 0, 0);
+//         --collapse-bg-clr: #505050;
+//         --active-clr: #27508B;
+//         --logo-clr: #fff;
+//         --link-clr: #2f5bc7;
+//         --link-clr-hvr: #284DA9;
+//         --hr-clr: rgba(0, 0, 0, 0.3);
+//         --f0-clr: #333;
+//         --f1-clr: #bbb;
+//     }
+// }
+
+// alternate light theme
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-clr: #fff;
+        --fg-clr: #151515;
+        --fg-clr-landing: #151515;
+        --item-clr: #F7F7F7;
+        --accent-clr: #E8E8E8;
+        --border-clr: rgba(0, 0, 0, 0);
+        --collapse-bg-clr: #f0f0f0;
+        --active-clr: #E8E8E8;
+        --logo-clr: #373737;
+        --link-clr: #2f5bc7;
+        --hr-clr: rgba(0, 0, 0, 0.3);
+        --f0-clr: #151515;
+        --f1-clr: #bbb;
+    }
+}
+
+@logo: 'data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path d="M548.074,453.053C601.39,172.109 225.51,315.262 296.813,513.361C325.28,592.452 376.923,656.129 442.168,690.601C519.224,731.314 615.253,731.29 714.482,667.815C901.005,548.498 887.287,280.552 832.634,142.859C1087.22,431.282 810.223,908.669 501.851,909.572C193.478,910.474 88.839,713.846 78.164,525.988C66.479,320.364 218.405,181.487 366.775,163.817C502.145,147.695 668.896,271.447 548.074,453.053Z" style="fill:white;"/></svg>';
+
+html {
+    // font-size: 106.25%; // set the base font size to 17px when the browser default is 16px
+    font-family:
+        "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica", "Arial", sans-serif;
+}
+
+body {
+    font-size: var(--step-0);
+    font-weight: 300;
+    font-stretch: 100%;
+    letter-spacing: .004em;
+    -webkit-font-smoothing: antialiased; // chrome, safari
+    -moz-osx-font-smoothing: grayscale; // Firefox
+    height: 100%;
+    color: var(--f0-clr);
+    background-color: var(--bg-clr);
+    overscroll-behavior-x: contain;
+    min-width: 320px; // iPhone 5 width
+}
+
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--hr-clr), rgba(0, 0, 0, 0));
+}
+
+a {
+    color: var(--link-clr);
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        color: var(--link-clr-hvr);
+        transition: all 0.1s;
+    }
+
+    text-decoration: none;
+}
+
+.fake_a {
+    color: var(--link-clr);
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.1s;
+    }
+}
+
+
+// like boostrap colors, just the same as my sidebar
+.btn-matchsidebar {
+    color: var(--fg-clr) !important;
+    background-color: var(--item-clr);
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--accent-clr);
+        }
+    }
+}
+
+.bg-light-grad {
+    background-image: linear-gradient(to right, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1));
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background-color: var(--logo-clr);
+    -webkit-mask-image: url(@logo);
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url(@logo);
+    mask-repeat: no-repeat;
+    // mask-image: url(../media/logo_free_white_s.svg);
+}
+
+.img-dyn {
+    display: block;
+    max-width: calc(100% - 2rem);
+    height: auto;
+    margin: 1rem;
+    border-radius: 3px;
+
+    &.w-full {
+        // lets have some extra padding for full width images
+        max-width: calc(100% - 2.5rem);
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+
+    // lets also add the bootstrap style 12 col version
+    &.w-col-1 {
+        max-width: calc(8.33% - 2rem);
+    }
+
+    &.w-col-2 {
+        max-width: calc(16.66% - 2rem);
+    }
+
+    &.w-col-3 {
+        max-width: calc(25.00% - 2rem);
+    }
+
+    &.w-col-4 {
+        max-width: calc(33.33% - 2rem);
+    }
+
+    &.w-col-5 {
+        max-width: calc(41.66% - 2rem);
+    }
+
+    &.w-col-6 {
+        max-width: calc(50.00% - 2rem);
+    }
+
+    &.w-col-7 {
+        max-width: calc(58.33% - 2rem);
+    }
+
+    &.w-col-8 {
+        max-width: calc(66.66% - 2rem);
+    }
+
+    &.w-col-9 {
+        max-width: calc(75.00% - 2rem);
+    }
+
+    &.w-col-10 {
+        max-width: calc(83.33% - 2rem);
+    }
+
+    &.w-col-11 {
+        max-width: calc(91.66% - 2rem);
+    }
+
+    &.w-col-12 {
+        max-width: calc(100.0% - 2rem);
+    }
+
+    &.w-third {
+        .w-col-4();
+    }
+
+    &.w-half {
+        .w-col-6();
+    }
+
+
+    &.right {
+        float: right;
+        // with those, match the text vertical alignment of a starting paragraph
+        margin-right: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    &.left {
+        float: left;
+        margin-left: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    &.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    @media screen and (max-width: 768px) {
+        // use the !important to overwrite more specific modifications above
+        max-width: calc(100% - 1.0rem) !important;
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+        // margin-bottom: .5rem;
+    }
+}
+
+.content {
+    text-align: justify;
+    color: var(--f0-clr);
+    margin-top: 1rem;
+    // margin-left: 0rem;
+    // @media screen and (min-width: 768px) {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    // }
+}
+
+// overwrite bootstrap heading sizes with fluid sizes
+h1,
+.h1 {
+    font-size: var(--step-4);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+h2,
+.h2,
+h3,
+.h3 {
+    font-size: var(--step-1);
+    font-weight: 700;
+    margin-bottom: .7rem;
+    text-align: left;
+}
+
+
+h4,
+.h4,
+h5,
+.h5 h6,
+.h6 {
+    font-size: var(--step-0);
+    font-weight: 700;
+    margin-bottom: .5rem;
+    text-align: left;
+}
+
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.btn>.feather {
+    width: 14px;
+    height: 14px;
+    vertical-align: text-center;
+    // margin-right: .25em;
+}
+
+// a horizontal line that fades out to the left and right
+.hline {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--accent-clr), rgba(0, 0, 0, 0));
+}
+
+// import remaining less files and compile into one css
+@import "_profile.less";
+@import "_navbars.less";
+@import "_markdown.less";
+@import "_animate.less";
+@import "_blog.less";

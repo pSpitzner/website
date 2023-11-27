@@ -1,0 +1,115 @@
+#content-blog,
+.blog-single-post {
+    padding-top: 1rem;
+}
+
+.blog-post-adjacent-links {
+    /* these should look much like the menubar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* compensate container spacing */
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        margin-top: -1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &>a {
+        font-size: medium;
+        height: 51px;
+        border-radius: 6px;
+        /* center content */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        padding-left: 0;
+        padding-right: 0;
+
+        &.blog-link-prev {
+            padding-right: 1rem;
+            margin-right: auto;
+        }
+
+        &.blog-link-next {
+            padding-left: 1rem;
+            margin-left: auto;
+        }
+
+        > .feather {
+            height: 24px;
+            width: 24px;
+            margin-right: .25rem;
+            margin-left: .25rem;
+        }
+    }
+}
+
+.blog-post {
+    padding-bottom: 6em;
+    overflow: auto;
+}
+
+
+// date above heading
+.blog-post-date {
+    font-size: var(--step-1);
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+
+// little link icon as part of the heading
+.blog-post-link {
+    display: inline;
+
+    @media (min-width: 768px) {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@media (hover:hover) {
+    .blog-post>h1:hover .blog-post-link {
+        display: inline;
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+// icon floating to the right of the heading, but do not let text flow in
+.blog-post-icon {
+    float: left;
+    margin-left: .5rem;
+    margin-bottom: 1rem;
+    margin-top: .25rem;
+    margin-right: 1.5rem;
+    width: 5em;
+    height: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* mimics publication page, with a rich preview */
+.blog-post-overview-item {
+    padding: .5rem;
+    border-radius: 6px;
+    margin-bottom: .75rem;
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+    background: var(--item-clr);
+    /* gradient from lower-left corner to upper right */
+    /* background: linear-gradient(15deg, var(--item-clr) 0%, transparent 70%); */
+}
+
+@media (hover: hover) {
+    .blog-post-overview-item:hover {
+        background: var(--accent-clr);
+        cursor: pointer;
+    }
+}
